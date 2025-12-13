@@ -1,0 +1,31 @@
+# Ignore environment files
+.env
+.env.*
+
+# Ignore virtual environments
+venv/
+myenv/
+env/
+*.pyc
+__pycache__/
+
+# Ignore IDE/editor files
+.vscode/
+.idea/
+
+# Ignore OS junk files
+.DS_Store
+Thumbs.db
+
+# Ignore logs
+*.log
+
+# Ignore build artifacts
+build/
+dist/
+*.egg-info/
+
+# Ignore local data/cache
+*.sqlite3
+*.db
+.cache/
