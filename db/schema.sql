@@ -1,49 +1,62 @@
 -- ================================
 -- NewsScope / TrueLens DB Schema
--- Author: DB Engineer (Member 3)
+-- Author: DB Engineer 
 -- ================================
 
--- Drop existing tables (for reset during development)
-DROP TABLE IF EXISTS analysis CASCADE;
-DROP TABLE IF EXISTS summaries CASCADE;
-DROP TABLE IF EXISTS articles CASCADE;
+-- ================================
+-- SOURCES TABLE
+-- ================================
+
+CREATE TABLE IF NOT EXISTS sources (
+  id SERIAL PRIMARY KEY,
+  domain TEXT UNIQUE NOT NULL,
+  name TEXT,
+  reliability_tag TEXT CHECK (reliability_tag IN ('trusted','unverified','bad')) DEFAULT 'unverified',
+  last_seen TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
 
 -- ================================
 -- ARTICLES TABLE
 -- ================================
-CREATE TABLE articles (
-    id SERIAL PRIMARY KEY,
-    title TEXT NOT NULL,
-    url TEXT UNIQUE NOT NULL,
-    source_domain TEXT NOT NULL,
-    published_at TIMESTAMP NOT NULL,
-    fetched_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+CREATE TABLE IF NOT EXISTS articles (
+  id BIGSERIAL PRIMARY KEY,
+  title TEXT,
+  url TEXT UNIQUE NOT NULL,
+  source_domain TEXT NOT NULL REFERENCES sources(domain) ON UPDATE CASCADE,
+  summary TEXT,
+  content TEXT,
+  published_at TIMESTAMP WITH TIME ZONE,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  is_verified BOOLEAN
 );
 
 -- ================================
 -- SUMMARIES TABLE (GPT Output)
 -- ================================
-CREATE TABLE summaries (
-    id SERIAL PRIMARY KEY,
-    article_id INTEGER UNIQUE REFERENCES articles(id) ON DELETE CASCADE,
-    neutral_summary TEXT NOT NULL,
-    trust_index INTEGER CHECK (trust_index BETWEEN 0 AND 100),
-    reasoning TEXT
+CREATE TABLE IF NOT EXISTS summaries (
+  id BIGSERIAL PRIMARY KEY,
+  article_id BIGINT REFERENCES articles(id) ON DELETE CASCADE,
+  neutral_summary TEXT,
+  trust_index INT CHECK (trust_index BETWEEN 0 AND 100),
+  reasoning TEXT,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 -- ================================
 -- ANALYSIS TABLE (Bias Detection)
 -- ================================
-CREATE TABLE analysis (
-    id SERIAL PRIMARY KEY,
-    article_id INTEGER UNIQUE REFERENCES articles(id) ON DELETE CASCADE,
-    bias_label VARCHAR(20),
-    bias_score REAL,
-    final_score REAL
+CREATE TABLE IF NOT EXISTS analysis (
+  id BIGSERIAL PRIMARY KEY,
+  article_id BIGINT REFERENCES articles(id) ON DELETE CASCADE,
+  bias_label TEXT,
+  bias_score DOUBLE PRECISION,
+  final_score DOUBLE PRECISION,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
+
 
 -- ================================
 -- INDEXES FOR PERFORMANCE
 -- ================================
-CREATE INDEX idx_articles_published_at ON articles(published_at DESC);
-CREATE INDEX idx_analysis_final_score ON analysis(final_score DESC);
+CREATE INDEX IF NOT EXISTS idx_articles_source ON articles(source_domain);
+CREATE INDEX IF NOT EXISTS idx_articles_published ON articles(published_at);
