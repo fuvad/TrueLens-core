@@ -1,0 +1,55 @@
+# ------------------------------
+# Environment / Secrets
+# ------------------------------
+.env
+.env.*
+!.env.example
+
+# ------------------------------
+# Python cache / compiled files
+# ------------------------------
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pkl
+*.db
+*.sqlite3
+
+# ------------------------------
+# Virtual environments
+# ------------------------------
+venv/
+.venv/
+env/
+myenv/
+
+# ------------------------------
+# Logs / temporary data
+# ------------------------------
+*.log
+logs/
+data/
+tmp/
+output/
+*.out
+
+# ------------------------------
+# IDE / Editor configs
+# ------------------------------
+.vscode/
+.idea/
+*.swp
+
+# ------------------------------
+# OS-generated junk
+# ------------------------------
+.DS_Store
+Thumbs.db
+
+# ------------------------------
+# Build / packaging artifacts
+# ------------------------------
+build/
+dist/
+*.egg-info/
