@@ -1,33 +1,55 @@
-# Ignore environment files
+# ------------------------------
+# Environment / Secrets
+# ------------------------------
 .env
 .env.*
 !.env.example
 
-# Ignore virtual environments
-venv/
-myenv/
-env/
-*.pyc
+# ------------------------------
+# Python cache / compiled files
+# ------------------------------
 __pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pkl
+*.db
+*.sqlite3
 
-# Ignore IDE/editor files
+# ------------------------------
+# Virtual environments
+# ------------------------------
+venv/
+.venv/
+env/
+myenv/
+
+# ------------------------------
+# Logs / temporary data
+# ------------------------------
+*.log
+logs/
+data/
+tmp/
+output/
+*.out
+
+# ------------------------------
+# IDE / Editor configs
+# ------------------------------
 .vscode/
 .idea/
+*.swp
 
-# Ignore OS junk files
+# ------------------------------
+# OS-generated junk
+# ------------------------------
 .DS_Store
 Thumbs.db
 
-# Ignore logs and data
-*.log
-data/
-
-# Ignore build artifacts
+# ------------------------------
+# Build / packaging artifacts
+# ------------------------------
 build/
 dist/
 *.egg-info/
-
-# Ignore local data/cache
-*.sqlite3
-*.db
-.cache/
