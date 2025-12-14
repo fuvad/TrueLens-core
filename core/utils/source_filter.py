@@ -5,21 +5,35 @@ from core.utils.logger import get_logger
 log = get_logger("source_filter")
 
 TRUSTED = {
-    # Global
-    "bbc.com", "bbc.co.uk", "reuters.com", "apnews.com", "theguardian.com",
-    "aljazeera.com", "nytimes.com", "washingtonpost.com", "npr.org",
-    "bloomberg.com", "financialtimes.com", "forbes.com", "time.com",
-    "abcnews.go.com", "cbsnews.com", "nbcnews.com", "usatoday.com",
-    "cnn.com", "theatlantic.com", "vox.com",
+    # 🌍 Global News
+    "bbc.com", "reuters.com", "apnews.com", "theguardian.com", "aljazeera.com",
+    "nytimes.com", "washingtonpost.com", "npr.org", "bloomberg.com", "financialtimes.com",
+    "forbes.com", "time.com", "economist.com", "newsweek.com", "thetimes.co.uk", "telegraph.co.uk",
+    "cbc.ca", "abc.net.au", "lemonde.fr", "elpais.com", "asahi.com", "dw.com",
+    "japantimes.co.jp", "spiegel.de", "smh.com.au",
 
-    # India
-    "thehindu.com", "indiatoday.in", "ndtv.com", "hindustantimes.com",
-    "timesofindia.indiatimes.com", "business-standard.com", "livemint.com",
-    "scroll.in", "theprint.in", "news18.com",
+    # 🇮🇳 India News
+    "thehindu.com", "timesofindia.indiatimes.com", "hindustantimes.com", "indiatoday.in",
+    "ndtv.com", "scroll.in", "livemint.com", "theprint.in", "news18.com", "thewire.in",
+    "telegraphindia.com", "deccanherald.com", "dailyo.in", "indianexpress.com", "zeenews.india.com",
+    "telecom.economictimes.indiatimes.com", "firstpost.com", "outlookindia.com", "thequint.com", "greaterkashmir.com",
 
-    # Technology & science
-    "techcrunch.com", "wired.com", "scientificamerican.com", "nature.com",
-    "newscientist.com"
+    # 🧠 Technology & Science
+    "techcrunch.com", "wired.com", "verge.com", "arstechnica.com", "thenextweb.com",
+    "engadget.com", "gizmodo.com", "mashable.com", "scientificamerican.com", "nature.com",
+    "newscientist.com", "quantamagazine.org", "cerncourier.com", "popularscience.com",
+    "technologyreview.com", "ieee.org", "sciencedaily.com", "science.org", "space.com", "techradar.com",
+
+    # 🏆 Sports
+    "espn.com", "bbc.com/sport", "sky.com/sports", "foxsports.com", "cbssports.com",
+    "bleacherreport.com", "theathletic.com", "goal.com", "marca.com", "livescore.com",
+    "cricbuzz.com", "icc-cricket.com", "nba.com", "uefa.com", "olympics.com",
+
+    # 🗳️ Politics & Policy
+    "politico.com", "thehill.com", "foreignpolicy.com", "nationalreview.com", "slate.com",
+    "vox.com", "theatlantic.com", "pjmedia.com", "realclearpolitics.com", "brookings.edu",
+    "cfr.org", "heritage.org", "amnesty.org", "hrw.org", "pewresearch.org",
+    "rand.org", "csis.org", "chathamhouse.org", "aei.org", "foreignaffairs.com"
 }
 
 BAD = {
