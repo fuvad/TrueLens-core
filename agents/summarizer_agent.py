@@ -1,5 +1,8 @@
 from transformers import pipeline
 from core.utils.logger import get_logger
+import os
+os.environ["TRANSFORMERS_NO_TF_WARNING"] = "1"
+os.environ["USE_TF"] = "0"
 
 log = get_logger("summarizer")
 
@@ -23,7 +26,7 @@ def summarize(article_text: str, reliability_hint: str):
             f"Article:\n{article_text[:2000]}"
         )
 
-        output = _summarizer(prompt, max_length=200, min_length=60, do_sample=False)[0]["summary_text"]
+        output = _summarizer(prompt, max_length=100, min_length=50, do_sample=False)[0]["summary_text"]
 
         # Split summary and reasoning if possible
         if "Reasoning:" in output:
