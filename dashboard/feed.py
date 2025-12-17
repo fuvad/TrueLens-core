@@ -2,6 +2,9 @@ import pandas as pd
 import streamlit as st
 import psycopg2, os, time
 from psycopg2.extras import RealDictCursor
+from dotenv import load_dotenv
+load_dotenv()
+
 
 def _conn():
     return psycopg2.connect(
@@ -46,4 +49,12 @@ def render_feed():
         return
 
     df = pd.DataFrame(rows)
+    def trust_label(t):
+        if t < 60:
+            return "Low Confidence"
+        elif t == 60:
+            return "Unverified"
+        else:
+            return "Trusted"
+    df["trust_level"] = df["trust_index"].apply(trust_label)
     st.dataframe(df, use_container_width=True, hide_index=True)
